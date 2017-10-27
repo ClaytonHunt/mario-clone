@@ -7,6 +7,8 @@ import {Camera} from "./camera.js";
 import {createCollisionLayer, createCameraLayer} from "./layers.js";
 import { setupMouseControl } from "./debug.js";
 
+const debug = false;
+
 Promise.all([
   init(),
   loadLevel('1-1'),
@@ -16,8 +18,10 @@ Promise.all([
   window.camera = camera;
   mario.pos.set(64, 64);
 
-  level.comp.layers.push(createCollisionLayer(level));
-  level.comp.layers.push(createCameraLayer(camera));
+  if(debug) {
+    level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(createCameraLayer(camera));
+  }
 
   level.entities.add(mario);
 

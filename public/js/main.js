@@ -5,6 +5,7 @@ import { setupKeyboard } from './input.js';
 import {createMario} from './entities.js';
 import {Camera} from "./camera.js";
 import {createCollisionLayer} from "./layers.js";
+import { setupMouseControl } from "./debug.js";
 
 Promise.all([
   init(),
@@ -29,4 +30,7 @@ Promise.all([
   };
 
   timer.start();
+
+  // Debug functions
+  setupMouseControl(screen.canvas, mario, camera);
 });

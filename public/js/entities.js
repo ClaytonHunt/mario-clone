@@ -3,7 +3,6 @@ import { Velocity } from './traits/velocity.js';
 import { Jump } from './traits/jump.js';
 import { Go } from './traits/go.js';
 import { loadMarioSprite } from './sprites.js';
-import { ClickPosition } from "./traits/click-position.js";
 
 export function createMario() {
   return loadMarioSprite().then(sprite => {
@@ -13,7 +12,6 @@ export function createMario() {
     mario.addTrait(new Go());
     mario.addTrait(new Jump());
     // mario.addTrait(new Velocity());
-    mario.addTrait(new ClickPosition());
 
     mario.draw = function drawMario(context) {
       sprite.draw('idle', context, 0, 0);

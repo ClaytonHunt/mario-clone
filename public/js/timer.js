@@ -1,5 +1,5 @@
 export class Timer {
-  constructor(deltaTime = 1/60) {
+  constructor(deltaTime = 1 / 60) {
     let accumulatedTime = 0;
     let lastTime = 0;
 
@@ -7,7 +7,11 @@ export class Timer {
       accumulatedTime += (time - lastTime) / 1000;
       lastTime = time;
 
-      while(accumulatedTime > deltaTime) {
+      if (accumulatedTime > 1) {
+        accumulatedTime = 1;
+      }
+
+      while (accumulatedTime > deltaTime) {
         this.update(deltaTime);
         accumulatedTime -= deltaTime;
       }

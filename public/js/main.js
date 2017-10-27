@@ -4,8 +4,10 @@ import {init} from './initialization.js';
 import { setupKeyboard } from './input.js';
 import {createMario} from './entities.js';
 import {Camera} from "./camera.js";
-import {createCollisionLayer} from "./layers.js";
+import {createCollisionLayer, createCameraLayer} from "./layers.js";
 import { setupMouseControl } from "./debug.js";
+
+const debug = false;
 
 Promise.all([
   init(),
@@ -16,7 +18,10 @@ Promise.all([
   window.camera = camera;
   mario.pos.set(64, 64);
 
-  level.comp.layers.push(createCollisionLayer(level));
+  if(debug) {
+    level.comp.layers.push(createCollisionLayer(level));
+    level.comp.layers.push(createCameraLayer(camera));
+  }
 
   level.entities.add(mario);
 

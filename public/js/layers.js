@@ -1,22 +1,15 @@
-export function createBackgroundLayer(level, sprites) {
-  const tiles = level.tiles;
-  const resolver = level.tileCollider.tiles;
+import {TileResolver} from "./tile-resolver.js";
+
+export function createBackgroundLayer(level, tiles, sprites) {
+  const resolver = new TileResolver(tiles);
 
   const buffer = document.createElement('canvas');
   const context = buffer.getContext('2d');
   buffer.width = 256+16;
   buffer.height = 240;
 
-  let startIndex, endIndex;
-
-  function redraw(drawFrom, drawTo) {
-    // if(drawFrom === startIndex && drawTo === endIndex) {
-    //   return;
-    // }
-
-    startIndex = drawFrom;
-    endIndex = drawTo;
-
+  function redraw(startIndex, endIndex) {
+    context.clearRect(0, 0, buffer.width, buffer.height);
     for(let x = startIndex; x <= endIndex; x++) {
       const col = tiles.grid[x];
       if(col) {
@@ -86,8 +79,8 @@ export function createCollisionLayer(level) {
     level.entities.forEach(entity => {
       context.beginPath();
       context.rect(
-        entity.pos.x - camera.pos.x,
-        entity.pos.y - camera.pos.y,
+        entity.bounds.left - camera.pos.x,
+        entity.bounds.top - camera.pos.y,
         entity.size.x,
         entity.size.y);
       context.stroke();
